@@ -1,4 +1,5 @@
-
+import java.math.BigDecimal;
+import java.util.Scanner;
 public class Aufgabe26_Potenz23 {
 	public static void main(String [] args) {
 					/*
@@ -20,31 +21,62 @@ public class Aufgabe26_Potenz23 {
 					richtig rechnet.
 					*/
 		
-		int zahl1 = 0; //5
-		int zahl2 = 0; //5
-		int result = 0; //
+		//Mit addition multiplikation bauen -> dann methode multiplikation sooft aufrufen wie potenz steht
 		
-		if(zahl1<0||zahl2<0) {
-			System.out.println("Eingabe darf nicht kleiner 0 sein");
-		}else {
-			iterativ(5,5,0);
-			rekursiv(0,0,0);
-		}
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Tippe Basis bestätige mit Enter dann tippe exponent bestätige mit Enter");
+		int zahl1 = sc.nextInt();
+		int zahl2 = sc.nextInt();
+		
+//		if(zahl1<0||zahl2<0) {
+//			System.out.println("Eingabe darf nicht kleiner 0 sein"); //TODO aender weil negative exponenten auch zugelassen sind
+//		}else {
+			iterativ(zahl1,zahl2);
+			rekursiv(zahl1,zahl2);
+//		}
 	
 		
 		
 	}
-	private static int iterativ(int basis, int exponent, int res) {
-		if(exponent == 0) {
-			return 1;
+	private static void iterativ(int basis, int exponent) {
+		boolean exp = true;
+		int zwischen = 0;
+		double zwischenD = 0.0;
+		
+		if(exponent >= 0) {
+			if(exponent == 0) {
+				exp = false;
+			}else {
+				zwischen = basis;
+				for(int i = 1; i < exponent; i++) {
+					zwischen *= basis;
+				}
+			}
+				if (exp == false) {
+					System.out.println(1);
+				} else {
+				System.out.println(zwischen);
+				}
 		}
-		
-		
-		return res;
+//			if(exponent < 0) {
+//				zwischenD = 1.0/basis;
+//				exponent *= -1;
+//				for(int i = 1; i < exponent; i++) {
+//					zwischenD *= 1.0/basis;
+//				}
+//				System.out.printf("%.2f%n", zwischenD);
+//				System.out.println(zwischenD);
+//			}
+			if (exponent < 0) {
+	            BigDecimal result = BigDecimal.ONE.divide(BigDecimal.valueOf(basis).pow(-exponent));
+	            System.out.println(result);
+	        }
+
 	}
-	private static int rekursiv(int zahl1, int zahl2, int res) {
+	private static void rekursiv(int zahl1, int zahl2) {
 	
-		return res;
+		
 	}
+	
 }
 
