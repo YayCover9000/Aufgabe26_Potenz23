@@ -34,7 +34,7 @@ public class Aufgabe26_Potenz23 {
 //		}else {
 		iterativ(basis,exponent);
 		BigDecimal result = rekursiv(basis, exponent);
-		System.out.println(result);
+		System.out.println(result.stripTrailingZeros());
         
 //		}
 	
@@ -68,7 +68,7 @@ public class Aufgabe26_Potenz23 {
 
 	}
 	private static BigDecimal rekursiv(int basis, int exponent) {
-		 if (exponent == 0) {
+		  if (exponent == 0) {
 	            return BigDecimal.ONE;
 	        } else if (exponent > 0) {
 	            BigDecimal temp = rekursiv(basis, exponent - 1);
