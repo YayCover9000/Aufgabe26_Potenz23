@@ -1,4 +1,5 @@
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Scanner;
 public class Aufgabe26_Potenz23 {
 	public static void main(String [] args) {
@@ -25,14 +26,16 @@ public class Aufgabe26_Potenz23 {
 		
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Tippe Basis bestätige mit Enter dann tippe exponent bestätige mit Enter");
-		int zahl1 = sc.nextInt();
-		int zahl2 = sc.nextInt();
+		int basis = sc.nextInt();
+		int exponent = sc.nextInt();
 		
 //		if(zahl1<0||zahl2<0) {
 //			System.out.println("Eingabe darf nicht kleiner 0 sein"); //TODO aender weil negative exponenten auch zugelassen sind
 //		}else {
-			iterativ(zahl1,zahl2);
-			rekursiv(zahl1,zahl2);
+		iterativ(basis,exponent);
+		BigDecimal result = rekursiv(basis, exponent);
+		System.out.println(result);
+        
 //		}
 	
 		
@@ -58,23 +61,23 @@ public class Aufgabe26_Potenz23 {
 				System.out.println(zwischen);
 				}
 		}
-//			if(exponent < 0) {
-//				zwischenD = 1.0/basis;
-//				exponent *= -1;
-//				for(int i = 1; i < exponent; i++) {
-//					zwischenD *= 1.0/basis;
-//				}
-//				System.out.printf("%.2f%n", zwischenD);
-//				System.out.println(zwischenD);
-//			}
 			if (exponent < 0) {
 	            BigDecimal result = BigDecimal.ONE.divide(BigDecimal.valueOf(basis).pow(-exponent));
 	            System.out.println(result);
 	        }
 
 	}
-	private static void rekursiv(int zahl1, int zahl2) {
-	
+	private static BigDecimal rekursiv(int basis, int exponent) {
+		 if (exponent == 0) {
+	            return BigDecimal.ONE;
+	        } else if (exponent > 0) {
+	            BigDecimal temp = rekursiv(basis, exponent - 1);
+	            return BigDecimal.valueOf(basis).multiply(temp);
+	        } else {
+	            BigDecimal temp = rekursiv(basis, exponent + 1);
+	            BigDecimal reciprocal = BigDecimal.ONE.divide(BigDecimal.valueOf(basis), 10, RoundingMode.HALF_UP);
+	            return reciprocal.multiply(temp);
+	        }
 		
 	}
 	
